@@ -1,0 +1,35 @@
+ 快速幂
+long long ksm(long long a,long long b)
+{
+    int ans = 1,base = a;
+    while(b != 0){
+        if(b & 1 != 0){
+            ans *= base;
+        }
+        base *= base;
+        b >>= 1;
+
+快速求幂（一般）
+int pow2(int a,int b){
+    int r=1,base=a;
+    while(b!=0){
+    if(b%2) r*=base;
+    base*=base;
+    b/=2;
+    }
+    return r;
+}
+其中“b & 1”指取b的二进制数的最末位，如11的二进制数为1011，第一次循环，取的是最右边的“1” ，以此类推。
+
+而“b >>= 1”等效于b = b >> 1，即右移1位，删去最低位。
+
+以a^11为例：
+
+b的二进制数为1011，二进制从右向左算，但乘出来的顺序是 a^(2^0)*a^(2^1)*a^(2^3)，是从左向右的。
+我们不断的让base *= base目的是累乘，以便随时对ans做出贡献。
+
+要理解base *= base这一步：因为base * base == base ^ 2，
+下一步再乘，就是(base ^ 2) * (base ^ 2) == base ^ 4，
+然后同理(base ^ 4) * (base ^ 4) == base ^ 8，
+由此可以做到base → base ^ 2 → base ^ 4 → base ^ 8 → base ^ 16 → base ^ 32.......指数正好是 2 ^ i 。
+再看上面的例子，a11= (a ^ 1) * (a ^ 2) * (a ^ 8)，这三项就可以完美解决了，快速幂就是这样。
