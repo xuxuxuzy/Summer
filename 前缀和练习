@@ -1,0 +1,45 @@
+/*今天qwb要参加一个数学考试，这套试卷一共有n道题，每道题qwb能获得的分数为ai，
+qwb并不打算把这些题全做完，他想选总共2k道题来做，并且期望他能获得的分数尽可能的大，
+他准备选2个不连续的长度为k的区间, 
+即[L,L+1,L+2,....,L+k-1]，[R,R+1,R+2,...,R+k-1]（R >= L+k）。
+
+第一行一个整数T（T<=10）,
+代表有T组数据接下来一行两个整数n,k,(1<=n<=200,000),(1<=k,2k <= n)
+接下来一行n个整数a1,a2,...,an，（-100,000<=ai<=100,000）
+
+输出一个整数，qwb能获得的最大分数
+（题目）*/
+思路
+因为区间大小是固定为k的，所以显然需要前缀和处理一下
+处理之后我们去维护前缀中长度为k的最大值f1，枚举第二个长度为k的起点，那么答案就是ans(f1+当前长度为k的序列和)
+复杂度为O(n)
+需要开long long
+*/
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#define ll long long
+using namespace std;
+const int maxn=2e5+10;
+ll t,n,k,ans,a[maxn],sum[maxn],f1[maxn],f2[maxn];
+int main(){
+    cin>>t;
+    while(t--){
+        memset(f1,-0x7f,sizeof(f1));
+        memset(f2,-0x7f,sizeof(f2));
+        cin>>n>>k;
+        ans=-1e18;
+        for(int i=1;i<=n;i++){
+            cin>>a[i];
+            sum[i]=a[i]+sum[i-1];
+        }
+        for(int i=k;i<=n-k;i++)
+            f1[i]=max(sum[i]-sum[i-k],f1[i-1]);
+        for(int i=n-k+1;i>=k+1;i--)
+            f2[i]=max(sum[i+k-1]-sum[i-1],f2[i+1]);
+        for(int i=k;i<=n-k;i++)
+            ans=max(ans,f1[i]+f2[i+1]);
+        cout<<ans<<endl;
+    }
+    return 0;
+}
