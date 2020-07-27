@@ -1,0 +1,45 @@
+Roundgod has an n*m matrix A=[ai,j] One day while she's doing her physics homework, 
+she wonders is it possible to define the physical quantity for matrices. 
+As we all know, the pressure p satisfies a formula p=f/s; Where f  is the compressive force and 
+S is the base area.
+To describe it in maths,
+Roundgod puts forward that the compressive force of a matrix equals the sum of all its entries,
+while the base area of a matrix equals the sum of the entries in its last row. 
+Then she can calculate the pressure for a matrix with the same formula. 
+Your goal is to find the submatrix of with maximum pressure. 
+A submatrix is obtained by taking nonempty subsets of its rows and columns.
+ Formally, given a nonempty subsequence S of {1.2.3.....n} and a nonempty subsequence T of {1,2.....m}
+ then  矩阵  is a submatrix of A
+ 
+ 
+ 题目大意 
+ P=F/S;
+矩阵的压缩力(F)等于其所有项的总和，而矩阵的底面积(S)等于其最后一行中的项的总和。然后，她可以为具有相同公式的矩阵计算压力。
+
+思路
+可以只考虑每一列 因为如果这一列是最大的话和其他列并在一起一定会变小 ，运用前缀和计算即可。
+
+
+ #include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	int t,n,m,i,j;int sum[205][205],a[205][205];
+	cin>>t;
+	while(t--)
+	{
+		scanf("%d%d",&n,&m);
+		double maxn=0;
+		for(i=1;i<=n;i++)
+		{
+			for(j=1;j<=m;j++)
+			{
+				scanf("%d",&a[i][j]);
+				sum[i][j]=sum[i-1][j]+a[i][j];
+                maxn=max(maxn,sum[i][j]*1.0/a[i][j]);
+			}
+		}	
+		printf("%.8lf\n",maxn);
+	}
+	return 0;
+}
