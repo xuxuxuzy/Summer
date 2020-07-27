@@ -1,0 +1,35 @@
+/*You are a player of the game Mine Craft. As a lawful good player, 
+instead of droping TNT everywhere you want to build your village on a vast plain.
+The game map could be recognized as a rectangle grid.
+ In one grid, you can set up a gold miner, or an elixir collector, or a headquarter.
+  You also can leave some grids green and vibrant.
+However, one restriction for some good reasons is that a headquarter must be next to at least one gold miner and at least one elixir collector.
+ 'Next to' means that their grids share one side -- every grid is next to up, down, left, and right grids.
+"Effeciecy!" A good old man said to you. You, the vast plain holder, want to be the most effecient player in the server.
+ You want to maximize the number of headquarters in your village. Formally, 
+If the village is a grid of size n×m, we define the max number of headquarters can be built as .
+ For example, since there should be at least 3 grids for setting up a headquarter; 
+ and one possible solution is (G, H, E, G, H, E).
+To prove that you really understand the problem very well, print the efficiency on the infinite plain. 
+Formally, you need to calculate  	
+ lim f(n,m)/n*m	;
+m→∞
+
+题目大意
+有一个无穷大的二维网格，每个格子可以是1、2或者3，每个1旁边要有一个2和3，要使机器的占比
+最大。
+
+解题思路
+这道题当时卡住了我好久，打表，枚举，玄学都用过了，结果解题方法居然这么简单。
+交错2和3，使每个1旁边恰好有一个2和3，而任意两个2和3不相邻。
+所以答案是2/3。*/
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    double x;
+    x=2.0/3;
+    printf("%.6lf",x);
+    return 0;
+}
