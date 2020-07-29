@@ -1,0 +1,117 @@
+牛牛想知道所有的长度为n的数中，各个位上的数字之和为m的这些数的和是多少呢。给定n和m，求这些数的和。 
+
+题解
+此题我是用暴力求解 
+
+
+long long sum(int n, int m) {
+    int a,b,c,d,e,f;
+    long long sum=0;
+            if(n==1)
+            {
+            for(a=1;a<=9;a++)
+    {
+        if(a==m)
+            sum=sum+a;
+        }
+    }
+            else if(n==2)
+            {
+                for(a=1;a<=9;a++)
+    {
+        for(b=0;b<=9;b++)
+    {
+        if(a+b==m)
+                sum=sum+a*10+b;
+            }
+        }
+    }
+            else if(n==3)
+            {
+                for(a=1;a<=9;a++)
+    {
+        for(b=0;b<=9;b++)
+    {
+         
+        for(c=0;c<=9;c++)
+    {
+        if(a+b+c==m)
+        sum=sum+a*100+b*10+c;
+    }
+}
+}
+}           
+            else if(n==4)
+            {
+                for(a=1;a<=9;a++)
+    {
+        for(b=0;b<=9;b++)
+    {
+         
+        for(c=0;c<=9;c++)
+    {
+         
+            for(d=0;d<=9;d++)
+    {
+        if(a+b+c+d==m)
+        sum=sum+a*1000+b*100+c*10+d;
+    }
+}
+}
+}
+}       
+            else if(n==5)
+            {
+                for(a=1;a<=9;a++)
+    {
+        for(b=0;b<=9;b++)
+    {
+         
+        for(c=0;c<=9;c++)
+    {
+         
+            for(d=0;d<=9;d++)
+    {
+     
+            for(e=0;e<=9;e++)
+    {
+        if(a+b+c+d+e==m)
+        sum=sum+a*10000+b*1000+c*100+d*10+e;
+    }
+}
+}
+}
+}
+            }
+             
+            else if(n==6)
+            {
+                for(a=1;a<=9;a++)
+    {
+        for(b=0;b<=9;b++)
+    {
+         
+        for(c=0;c<=9;c++)
+    {
+         
+            for(d=0;d<=9;d++)
+    {
+     
+            for(e=0;e<=9;e++)
+    {
+         
+        for(f=0;f<=9;f++)
+    {
+        if(a+b+c+d+e+f==m)
+        sum=sum+a*100000+b*10000+c*1000+d*100+e*10+f;
+    }
+}
+}
+}
+}
+} 
+            }           
+return sum;
+     
+}
+};
