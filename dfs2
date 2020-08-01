@@ -1,0 +1,62 @@
+题意
+身为屯里第一剑士的牛牛来到训练场里闯关，由于过于勤奋，牛牛的宝剑的耐久度降到了 2 ，这意味着牛牛最多只能打倒两只怪兽，否则将会被淘汰。
+
+训练场的地图可以看作一棵以 1 为根节点的树，训练场的终点为这棵树的叶子结点，树上的每个结点最多有一只怪兽，结点与结点间的边上没有怪兽。
+
+每一个有怪兽的结点上牛牛都需要打倒怪兽才算安全，并且牛牛一旦选定好打怪路线之后便不能走回头路。
+
+请问牛牛有多少种到达终点且不被淘汰的路径。
+
+输入
+第一个参数为 n，(1≤n≤100,000)
+
+第二个参数为大小为 n-1的点对(ui ,vi ) 的集合，其中 (ui ,vi) 表示结点 u i与结点 vi之间有一条边，
+第三个参数为大小为 n 的 0/1 序列 f，若 f i	为 0 表示i-1结点没有怪兽，否则表示 i-1 结点有怪兽。
+返回
+一个整数，表示牛牛能到达终点且不被淘汰的路径数。
+
+思路
+这个题得学会用vector 来装数据，定义一个二维数组，vector<int>a[n];
+a[i][0]表示与i相接的第一个数；再用dfs遍历一遍；
+
+ class Solution {
+public:
+    vector<vector<int> >v;
+vector<int>vis,val;
+int ans;
+bool check(int id)
+{
+    for(int i=0;i<v[id].size();i++)
+        if(vis[v[id][i]]==0)return 0;
+    return 1;
+}
+void dfs(int id,int sum)
+{
+    if(sum>2)return;
+    if(check(id))ans++;
+    for(int i=0;i<v[id].size();i++){
+        if(vis[v[id][i]]==0){
+            vis[v[id][i]]=1;
+            dfs(v[id][i],sum+val[v[id][i]]);
+        }
+          
+    }
+}
+    
+    int solve(int n, vector<Point>& Edge, vector<int>& f) {
+        ans=0;
+    v.resize(n+1);
+    vis.resize(n+1);
+    val.resize(n+1);
+    for(auto it:Edge){
+        v[it.x].push_back(it.y);
+        v[it.y].push_back(it.x);
+    }
+    for(int i=1;i<=n;i++){
+        vis[i]=0;val[i]=f[i-1];
+    }
+    vis[1]=1;
+    dfs(1,val[1]);
+    return ans;
+    }
+};
