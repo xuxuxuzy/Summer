@@ -1,0 +1,33 @@
+将n∗m个口罩分成k份分给医院，使得从中挑出n组，每组口罩数量一样多，也可以从中挑出m组，每组一样多，最后输出字典序最大的。
+
+题解
+我们可以先将n,m互换（如果m<n），使得n<m。由于要求字典序最大，装口罩最多的盒子不超过n。
+医院数量为n的时候，需要给每个医院安排m个口罩，至多给每个医院(m/n)个（向下取整）盒子，每个装着n个，总的就是(m/n)×n个盒子，每个医院还要再拿m%n个口罩。
+这时候我们考虑医院数量为m的情况，此时需要给每个医院分配n个口罩，那显然已经有(m/n)×n个医院满足条件了，还有m%n个医院没拿到。
+
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> ans;
+void dfs(int n,int m)
+{
+    if(m==0) return;
+    for(int i=0;i<(n/m)*m;i++) ans.push_back(m);
+    dfs(max((n%m),m),min((n%m),m));
+}
+int main()
+{
+    int t,n,m,i;
+    scanf("%d",&t);
+    while(t--)
+    {
+        ans.clear();
+        scanf("%d%d",&n,&m);
+        if(n<m) swap(n,m);
+        dfs(max(n,m),min(n,m));
+        printf("%d\n",ans.size());
+        for(i=0;i<ans.size();i++)    
+            printf("%d ",ans[i]);
+        puts("");
+    }
+    return 0;
+}
