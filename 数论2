@@ -1,0 +1,24 @@
+题意：Σk^2是不是完全平方数
+ Therearemultipletestcases. TheﬁrstlineoftheinputcontainsanintegerT (1 ≤ T ≤ 106)indicatingthenumber of test cases. 
+ For each test case, the ﬁrst line contains one integer n (1 ≤ n ≤ 1015). Output If the sum is a square number, please output Fake news!
+ in one line. Otherwise, please output Nobody knows it better than me! instead.
+
+ 做法0：特判1和24
+做法1：打表找规律。
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+int t;
+long long n;
+cin>>t;
+while(t--)
+{
+    scanf("%lld",&n);
+    if(n==1||n==24)
+    printf("Fake news!\n");
+    else
+    printf("Nobody knows it better than me!\n");
+    }
+    return 0;   
+}
