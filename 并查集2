@@ -1,0 +1,66 @@
+ 题目大意： 
+pollo正在玩电脑游戏，该游戏共有n轮，Apollo共要玩T次。
+每一轮中，系统会给出两个整数 和 ，而Apollo每轮可以执行以下三个操作中的一个：
+什么也不做； 
+如果在先前的操作中未选择 ，那么Apollo可以选择； 
+如果在先前的操作中未选择 ，那么Apollo可以选择。 
+由于Apollo已经破解了游戏（啊这，该操作可能导致其他玩家体验感降低），在游戏开始之前就知道了每轮给出的数是多少。
+现在Apollo想知道他可以选择的最多的整数的数量。
+
+输入描述
+第一行给出一个整数T，表示测试样例的数量（即Apollo玩的次数）；
+对于每个测试样例，第一行输入一个整数n，接下来的n行均给出n对数字 ，。
+输出描述
+对于每个测试样例，输出格式为：Case #x: y。
+其中x指测试样例的编号，y指最多的整数的数量。
+
+题解 
+并查集 
+在离散化后开始查找与是否有同一祖先，即是否存在环，并用数组记录一下祖先。若二者没有同一祖先，则计算不同的数字的数量。
+最后再判断一下，如果在某个或某几个堆中不存在环，那么每次找到不存在时 。
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+const int N=100010;
+int a[N],b[N],f[N*2];
+bool c[N*2];
+map<int,int> m;
+int find(int x)
+{
+  if(f[x]!=x) f[x]=find(f[x]);
+  return f[x];
+}
+int main()
+{
+  int T,n,t,ans,x,y,i,j;
+  scanf("%d",&T);
+  for(j=1;j<=T;j++)
+  {
+      t=0;m.clear();
+      scanf("%d",&n);
+      for(i=0;i<n;i++)
+      {
+          scanf("%d%d",&a[i],&b[i]);
+          if(!m[a[i]]) m[a[i]]=++t;
+          if(!m[b[i]]) m[b[i]]=++t;
+      }
+      for(i=1;i<=t;i++) c[i]=0,f[i]=i;
+      for(i=0;i<n;i++)
+      {
+          x=find(m[a[i]]),y=find(m[b[i]]);
+          if(x!=y)
+          {
+              f[x]=y;
+              if(c[x]||c[y]) c[y]=1;
+          }
+          else c[y]=1;
+      }
+      ans=t;
+      for(i=1;i<=t;i++)
+          if(f[i]==i && !c[i]) ans--;
+      printf("Case #%d: %d\n",j,ans);
+  }
+  return 0;
+}
