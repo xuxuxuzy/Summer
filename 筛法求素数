@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int MAXN = 1e6 + 5;
+bool prime[MAXN];
+void eratosthense(){
+	memset(prime, 0, sizeof(prime));
+	int m = sqrt(MAXN);
+	prime[0] = prime[1] = 1;
+	for(int i = 2; i <= m; i++){
+		if(prime[i]){
+			continue;
+		}
+		for(int j = i; j * i < MAXN; j++){
+			prime[i * j] = 1;
+		}
+	}
+}
+
+int main(){
+	eratosthense();
+	for(int i = 0; i < MAXN; i++){
+		if(!prime[i]){
+			cout << i << " ";
+		}
+	}
+	return 0;
+}
