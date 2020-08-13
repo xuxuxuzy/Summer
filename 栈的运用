@@ -1,0 +1,64 @@
+ 牛牛最近迷上了小游戏，
+ 于是他也想对他的01字符串进行一些操作，
+ 01字符串上的0和0相邻时会变成1，
+ 而1和1相邻时会在字符串上消失，
+ 而0和1相邻时什么都不会发生，
+ 牛牛现在把初始的字符串给你，
+ 你能告诉牛牛这个字符串最后会变成什么样吗。 
+ 题解
+ 01串到最后肯定是01交错的，所以如果是2个0就变成1然后1和前面的1消去，是两个1就直接消
+ 创一个栈， 往栈里添加，如果相同按上面处理。
+ 
+ 
+  class Solution {
+public:
+    /**
+     * 
+     * @param str string字符串 初始字符串
+     * @return string字符串
+     */stack<char>p;
+    string solve(string str) {
+        
+
+        int i;
+        string x;
+        char c;
+        c=str[0];
+        p.push(c);
+        for(i=1;i<str.length();i++)
+        {
+            c=str[i];
+            if(p.empty())
+            {
+                p.push(c);
+                continue;
+            } 
+            if(c==p.top())
+            {
+                if(c=='0')
+                {
+                   
+                p.pop();
+                    if(!p.empty())
+                 p.pop();  
+                    else
+                        p.push('1');
+                }
+                if(c=='1')
+                {
+                
+                 p.pop();
+                }
+            }
+            else
+                p.push(c);
+        }
+        while(!p.empty())
+        {
+           x=x+p.top();
+            p.pop();
+        }
+        reverse(x.begin(),x.end());
+        return x;
+}
+};
