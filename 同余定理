@@ -1,0 +1,28 @@
+2个不同的整数a、b，被一个整数m相除时，得到相同的余数，那么我就可以称a、b同余。
+    因为a、b同余所以当他们相减时，余数就抵消掉了，剩下的那部分就是能被m整除的。
+ 
+可以这么理解：
+   a=m*q1+r1，b=m*q2+r
+   a-b = m(q1-q2)
+   在a-b = m(q1-q2) 即 m | (a-b) (a-b能被m整除) 成立时，就能说明a、b对于m同余
+表示：
+   因为a-b = m(q1-q2)
+   所以a、b同余可以表示为
+   a≡b(mod m)
+   
+   
+   定理1  整数a,b对模m同余的充要条件是 a-b能被m整除（即m|a-b）
+   定理2  同余关系具有反身性、对称性与传递性，即
+1）a≡a (mod m);
+2）若a≡b (mod m), 则b≡a (mod m);
+3）若a≡b (mod m), b≡c (mod m)，则a≡c (mod m).
+定理3 若a≡b(mod m), c≡d (mod m),则
+1）a+c≡b+d (mod m);
+2）a-c≡b-d (mod m);
+3）ac≡bd (mod m).
+多于两个的同模同余式也能够进行加减乘运算。对于乘法还有下面的推论：
+推论  若a≡b(mod m),n为自然数，则an≡bn (mod m)。
+定理4 若ca≡cb(mod m), (c,m)=d, 且a,b为整数，则a≡b(mod m/d).
+推论若ca=cb(mod m), (c,m)=1,且a,b为整数，则a≡b(mod m).
+定理5 若a≡b (mod m),a≡b (mod n),则a≡b(mod [m,n]).
+推论若a≡b(mod mi), i=1,2,…,n，则a≡b (mod [m1,m2,..,mn]).
