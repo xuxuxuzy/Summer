@@ -1,0 +1,104 @@
+
+#include<iostream>
+
+using namespace std;
+
+ 
+
+#define  TRUE 1
+
+#define  FALSE 0
+
+ 
+
+struct point
+
+{
+
+	double x;
+
+	double y;
+
+};
+
+ 
+
+int min(int x,int y)
+
+{
+
+	if(x < y)
+
+		return x;
+
+	else
+
+		return y;
+
+}
+
+ 
+
+int max(int x,int y)
+
+{
+
+	if(x > y)
+
+		return x;
+
+	else
+
+		return y;
+
+}
+
+ 
+
+int Online(point P1,point P2,point Q)
+
+{
+
+	if(    (Q.x - P1.x) * (P2.y - P1.y) == ((P2.x - P1.x) * (Q.y - P1.y))  //叉乘
+
+ 
+
+		   &&( min(P1.x,P2.x) <= Q.x && Q.x <= max(P1.x,P2.x))
+
+		   //保证Q点坐标在P1P2之间
+
+		   && min(P1.y,P2.y) <= Q.y && Q.y <= max(P1.y,P2.y)     )
+
+		return TRUE;
+
+	else
+
+		return FALSE;
+
+}
+
+ 
+
+int main()
+
+{
+
+	point p1,p2,q;
+
+	cin>>p1.x>>p1.y;
+
+	cin>>p2.x>>p2.y;
+
+	cin>>q.x>>q.y;
+
+	if(Online(p1,p2,q))
+
+		cout<<"Q点在线段P1P2内"<<endl;
+
+	else
+
+		cout<<"Q点不在线段P1P2内"<<endl;
+
+	return 0;
+
+}
