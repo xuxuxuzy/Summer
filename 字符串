@@ -1,0 +1,48 @@
+牛牛注射了第二支虚空基因组，重新夺回了王之力，而牛能则想为王的诞生献上礼炮！ 
+有一串长度为
+n的小写字母组成的字符串，牛能可以从中挑选‘k’ ‘i’ ‘n’ ‘g’四个字符组成一支礼炮，
+或者从中挑选‘k’ ‘i’ ‘n’ ‘g’ ‘i’ ‘n’ ‘g’七个字符组成两支礼炮。
+请问牛能为王的诞生最多能献上多少礼炮？
+
+思路 分别记录下king的数量，求出里面的最小值minn，然后求出 i-minn，n-minn ，g-minn 的最小值y 
+加起来即可；
+注意 有时候 y大于 minn，也只能加minn；
+
+ #include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	
+	int n,a=0,b=0,c=0,d=0,i,minn=10000000;
+	long long sum=0;
+	scanf("%d",&n);
+	char x[n+5];
+	scanf("%s",x);
+	for(i=0;i<n;i++)
+	{
+		if(x[i]=='k')
+		a++;
+		else if(x[i]=='i')
+		b++;
+		else if(x[i]=='n')
+		c++;
+		else if(x[i]=='g')
+		d++;
+	}
+	minn=min(a,b);
+	minn=min(c,minn);
+	minn=min(d,minn);
+	sum=minn;
+	b=b-minn;
+	c=c-minn;
+	d=d-minn;
+	minn=min(b,c);
+	minn=min(minn,d);
+	if(minn>a)
+	sum=sum+a;
+	else
+	sum=sum+minn;
+	printf("%lld\n",sum);
+	
+	return 0;
+}
