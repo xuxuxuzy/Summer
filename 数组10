@@ -1,0 +1,30 @@
+任意给定一个正整数N(N<=100)，计算2的n次方的值。
+输入
+输入一个正整数N。
+输出
+输出2的N次方的值。
+样例输入
+5
+样例输出
+32
+
+#include <stdio.h>
+int main()
+{
+    int n,i,j,res[100] = {1};
+    scanf("%d",&n);
+    for(i = 0;i < n;i++)
+    {
+        for(j = 0;j < 100;j++)
+            res[j] *= 2;
+        for(j = 0;j < 99;j++)
+        {
+            res[j+1] += res[j] / 10;
+            res[j] %= 10;
+        }
+    }
+    while(!res[j])j--;
+    for(;j >= 0;j--)
+        printf("%d",res[j]);
+    return 0;
+}
