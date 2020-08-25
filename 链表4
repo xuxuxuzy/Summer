@@ -1,0 +1,186 @@
+实现对书籍的管理，书籍的基本信息存在文件中，具体的功能包括：
+1、读取信息，2，显示书籍信息，3、增加书记、4删除书籍，5修改书籍信息，6 查找书籍，7保存至文件。
+
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+struct book
+{
+char name[20];
+int price;
+struct book *next;
+};
+struct book *load();
+void erg(struct book *h);
+void add(struct book *h);
+struct book *dele(struct book *h);
+void change(struct book *h);
+void seek(struct book *h);
+void keep(struct book *h);
+int main()
+{
+int n;
+struct book *head;
+printf("1:load 2:erg 3:add 4:delete 5:change 6:seek 7:keep 0:exit\n");
+scanf("%d",&n);
+while(n!=0)
+{
+switch(n)
+{
+case 1 : head=load();break;
+case 2 : erg(head);break;
+case 3 : add(head);break;
+case 4 : head=dele(head);break;
+case 5 : change(head);break;
+case 6 : seek(head);break;
+case 7 : keep(head);break;
+case 0 : exit(0);break;
+}
+printf("1:load 2:erg 3:add 4:delete 5:change 6:seek 7:keep 0:exit\n");
+scanf("%d",&n);
+}
+return 0;
+}
+struct book *load()
+{
+FILE *fp;
+char name[20];
+int price;
+struct book *h=NULL,*p;
+if((fp=fopen("c:\\test\\test.txt","r"))==NULL)
+{
+printf("open error!\n");
+exit(0);
+}
+while(!feof(fp))
+{
+fscanf(fp,"%s%d",name,&price);
+p=(struct book *)malloc(sizeof(struct book));
+p->next=NULL;
+strcpy(p->name,name);
+p->price=price;
+if(h==NULL)
+h=p;
+else
+{
+ p->next=h;
+ h=p;
+}
+}
+fclose(fp);
+return h;
+}
+void erg(struct book *h)
+{
+struct book *k;
+k=h;
+while(k!=NULL)
+{
+printf("%s %d\n",k->name,k->price);
+k=k->next;
+}
+}
+void add(struct book *h)
+{
+struct book *p,*k;
+p=h;
+int price;
+char name[20];
+while(p->next!=NULL)
+{
+p=p->next;
+}
+scanf("%s%d",name,&price);
+k=(struct book *)malloc(sizeof(struct book));
+strcpy(k->name,name);
+k->price=price;
+k->next=NULL;
+p->next=k;
+}
+struct book *dele(struct book *h)
+{
+struct book *k,*p;
+int flag=0;
+char name[20];
+k=h;
+scanf("%s",name);
+if(strcmp(name,k->name)==0)
+{
+k=k->next;
+return k;
+}
+while(k->next!=NULL)
+{
+if(strcmp(name,k->next->name)==0)
+{
+flag=1;
+p=k->next;
+k->next=p->next;
+    free(p);
+break;
+}
+k=k->next;
+}
+if(flag==0)
+printf("delete error!\n");
+return h;
+}
+void change(struct book *h)
+{
+struct book *k;
+int flag=0,price2;
+char name[20],name2[20];
+k=h;
+scanf("%s%s%d",name,name2,&price2);
+while(k!=NULL)
+{
+if(strcmp(name,k->name)==0)
+{
+flag=1;
+  strcpy(k->name,name2);
+  k->price=price2;
+  break;
+}
+k=k->next;
+}
+if(flag==0)
+printf("chang error!\n");
+}
+void seek(struct book *h)
+{
+struct book *k;
+int flag=0;
+char name[20];
+k=h;
+scanf("%s",name);
+while(k!=NULL)
+{
+if(strcmp(name,k->name)==0)
+{
+flag=1;
+  printf("price is %d\n",k->price);
+  break;
+}
+k=k->next;
+}
+if(flag==0)
+printf("seek error!\n");
+}
+void keep(struct book *h)
+{
+FILE *fp;
+struct book *p;
+p=h;
+if((fp=fopen("c:\\test\\test.txt","w"))==NULL)
+{
+printf("open error!\n");
+exit(0);
+}
+while(p!=NULL)
+{
+fprintf(fp,"%s %d\n",p->name,p->price);
+p=p->next;
+}
+fclose(fp);
+}
