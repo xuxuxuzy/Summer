@@ -1,0 +1,51 @@
+输入整数m删除链表中所有为m的结点
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct stdent
+{
+int a;
+struct stdent *next;
+};
+int main()
+{
+int a1,m;
+struct stdent *head,*tail,*p,*head1=NULL,*tail1=NULL;
+head=tail=NULL;
+scanf("%d",&a1);
+while(a1!=-1)
+{
+p=(struct stdent *)malloc(sizeof(struct stdent));
+p->next=NULL;
+p->a=a1;
+if(head==NULL)
+{
+head=p;
+tail=p;
+}
+else
+{
+tail->next=p;
+tail=p;
+}
+if(a1%2!=0)
+{
+if(head1==NULL)
+head1=tail1=p;
+else
+{
+tail1->next=p;
+tail1=p;
+}
+}
+scanf("%d",&a1);
+}
+ while(head1!=NULL)
+ {
+printf("%d ",head1->a);
+head1=head1->next;
+ }
+ printf("\n");
+ return 0;
+ } 
