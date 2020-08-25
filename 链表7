@@ -1,0 +1,40 @@
+编程实现单链表的创建，每次添加节点是在头部添加。
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+struct student
+{
+char name[20];
+int score;
+struct student *next;
+};
+int main()
+{
+struct student *head=NULL,*tail=NULL,*p;
+int score;
+char name[20];
+scanf("%s%d",name,&score);
+while(score!=0)
+{
+p=(struct student *)malloc(sizeof(struct student));
+strcpy(p->name,name);
+p->score=score;
+if(head==NULL)
+{
+head=p;
+}
+else
+{
+p->next=head;
+head=p;
+}
+scanf("%s%d",name,&score);
+}
+while(head!=tail)
+{
+printf("%s %d\n",head->name,head->score);
+head=head->next;
+}
+return 0;
+}
