@@ -1,0 +1,34 @@
+输入若干个正整数（输入-1为结束标志）建立一个单向链表，头指针为L，将链表L中奇数值的结点重新组成一个新链表NEW，输出新建链表的信息
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<process.h>
+struct student
+{
+int a,b,c,d;
+char name[20];
+};
+int main()
+{
+FILE *fp;
+struct student ss[4];
+int i;
+if((fp=fopen("c:\\test\\test.txt","r"))==NULL)
+{
+printf("File open error!\n");
+exit(0);
+}
+for(i=0;i<4;i++)
+{
+fscanf(fp,"%d%s%d%d%d",&ss[i].a,ss[i].name,&ss[i].b,&ss[i].c,&ss[i].d);
+}
+for(i=0;i<4;i++)
+printf("%d %s %d %d %d\n",ss[i].a,ss[i].name,ss[i].b,ss[i].c,ss[i].d);
+if(fclose(fp))
+{
+printf("No close the file\n");
+exit(0);
+}
+return 0;
+}
