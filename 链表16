@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<string.h> 
+#include<stdlib.h>
+struct student{
+int num;
+char name[20];
+int score;
+struct student *next=NULL;
+}; 
+int main() 
+{
+struct student *head=NULL,*tail=NULL,*p,*str,*ptr,*ptr1;
+int num,score,t=0;
+char name[20];
+int size=sizeof(struct student);
+//创建 
+scanf("%d %s %d",#,name,&score);
+p=(struct student*)malloc(size);
+p->num=num;
+p->score=score;
+p->next=NULL;
+strcpy(p->name,name);
+head=tail=p;
+//插入 
+scanf("%d %s %d",#,name,&score);
+while(num!=0){
+p=(struct student*)malloc(size);
+p->num=num;
+p->score=score;
+p->next=NULL;
+strcpy(p->name,name);
+if(p->num<head->num){
+  p->next=head;
+  head=p;
+}
+else if(p->num>tail->num){
+tail->next=p;tail=p;
+}
+else{
+str=head;
+while(str->next!=NULL){
+if(p->num>str->num&&p->num<str->next->num)
+break;
+else
+str=str->next;
+}
+p->next=str->next;
+str->next=p;
+}
+scanf("%d %s %d",#,name,&score);
+}
+//删除  
+scanf("%d",#);
+if(head->num==num){
+head=head->next;
+}
+else{
+  ptr=head;ptr1=head->next; 
+  do{
+if(ptr1->num==num)
+{
+ptr->next=ptr1->next;
+t=1;
+break;
+    }
+  ptr=ptr1;ptr1=ptr1->next;}while(ptr1->next!=NULL);
+if(!t)
+printf("Not Fund\n");
+    }
+//遍历 
+    for(str=head;str!=NULL;str=str->next)
+printf("%d %s %d\n",str->num,str->name,str->score); 
+return 0;
+}
