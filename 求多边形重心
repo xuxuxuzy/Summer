@@ -1,0 +1,66 @@
+
+#include <iostream>
+
+#include <cstdio>
+
+using namespace std;
+
+struct Point
+
+{
+
+    double x, y;
+
+};
+
+int main()
+
+{
+
+    int num, n, i;
+
+    Point p0, p1, p2;
+
+    double sum_x, sum_y, sum, tmp;
+
+    scanf("%d", &num);
+
+    while (num--)
+
+    {
+
+        scanf("%d", &n);
+
+        sum = sum_x = sum_y = 0.0;
+
+        scanf("%lf%lf", &p0.x, &p0.y);
+
+        scanf("%lf%lf", &p1.x, &p1.y);
+
+        for (i=2; i<n; i++)
+
+        {
+
+            scanf("%lf%lf", &p2.x, &p2.y);
+
+            tmp = ((p1.x-p0.x)*(p2.y-p0.y)-(p2.x-p0.x)*(p1.y-p0.y))/2.0;
+
+            sum += tmp;
+
+            sum_x += ((p0.x+p1.x+p2.x) * tmp);
+
+            sum_y += ((p0.y+p1.y+p2.y) * tmp);
+
+            p1.x = p2.x;
+
+            p1.y = p2.y;
+
+        }
+
+        printf("%.2lf %.2lf\n", sum_x/sum/3, sum_y/sum/3);
+
+    }
+
+    return 0;
+
+}
