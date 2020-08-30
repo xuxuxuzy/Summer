@@ -1,0 +1,42 @@
+//判断单链表是否带环，如果带环的话，求环长度，环的入口点，然后计算每个算法的时间复杂度和空间复杂度
+//所谓的单链表带环，就是单链表的一个尾节点没有指向NULL，而是指向了单链表内的另一节点。
+//链表是否带环，时间复杂度O(n),没有开辟新空间，所以空间复杂度为O(1)
+  LinkNode* HasCycle(LinkNode* head){
+      LinkNode* fast = head;
+      LinkNode* slow = head;
+      while(fast != NULL && fast -> next != NULL){
+          fast = fast -> next -> next;
+          slow = slow -> next;
+          if(fast == slow){
+              return fast;
+          }   
+      }   
+      return NULL; 
+  }
+  //环的长度,时间复杂度O(n),空间复杂度O(1)
+  size_t GetCycleLen(LinkNode* head){
+      LinkNode* meet_node = HasCycle(head);
+      if(meet_node == NULL){
+          return 0;//链表无环
+      }
+      size_t count = 1;
+      LinkNode* cur = meet_node;
+      for(; cur -> next != meet_node; cur = cur -> next){
+          ++count;
+      }
+      return count;
+  }
+  //环的入口点,时间复杂度O（n），空间复杂度O（1）
+  LinkNode* GetCycleEntry(LinkNode* head){
+      LinkNode* meet_node = HasCycle(head);
+      if(meet_node == NULL){
+          return NULL;//没有环直接返回
+      }
+      LinkNode* cur1 = head;
+      LinkNode* cur2 = meet_node;
+      while(cur1 != cur2){
+          cur1 = cur1 -> next;
+          cur2 = cur2 -> next;
+      }
+      return cur1;
+  }
