@@ -1,0 +1,78 @@
+/*现在有两个长度相等且为15的有序链表(都为升序)，现在需要你将两个链表合成一个，
+并且保证两个链表合并完后依旧是升序(链表值相等并不影响最后的输出结果)*/
+#include<bits/stdc++.h>
+using namespace std;
+const int maxx=1e5+100;
+const int inf=1e8;
+int maxe[300][300];
+typedef struct Link
+{
+    int data;
+    struct Link *next;
+}lnode,*link;
+void creat(link *l)
+{
+    (*l) = (link)malloc(sizeof(lnode));
+    (*l)->next = NULL;
+}
+void input(lnode *l)
+{
+    link r = l,s;
+        
+    for(int i = 0;i < 15;i++)
+    {
+          s = (link)malloc(sizeof(lnode));
+        cin>>s->data;
+        r->next = s;
+        r = s;
+    }
+    r->next = NULL;
+}
+void show(lnode *l)
+{
+    link s = l->next;
+    while(s != NULL)
+    {
+        cout<<s->data<<" ";
+        s = s->next;
+    }
+}
+void uni(lnode *l1,lnode *l2,lnode *l3)
+{
+    link s1 = l1->next,s2 = l2->next,r = l3,e;
+    while(s1 != NULL && s2 != NULL)
+    {
+        e = (link)malloc(sizeof(lnode));
+        if(s1->data >= s2->data)//升序
+        {
+             e->data = s2->data;
+             r->next = e;
+             r = e;
+             s2 = s2->next;
+        }
+        else
+        {
+            e->data = s1->data;
+            r->next = e;
+            r = e;
+            s1 = s1->next;
+        }
+    }
+    if(s1 == NULL && s2 != NULL )
+        r->next = s2;
+    if(s2 == NULL && s1 != NULL)
+        r->next = s1;
+}
+int main()
+{
+    link l1,l2;
+    creat(&l1);
+    input(l1);
+    creat(&l2);
+    input(l2);
+    link l3;
+    creat(&l3);
+    uni(l1,l2,l3);
+    show(l3);
+    return 0;
+}
