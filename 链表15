@@ -1,0 +1,31 @@
+/*
+因为两个单链表已经排过序了，所以我们要求他们相同的数据，即可以创建两个指针，分别指向两个单链表的头，然后然他们比较，相同就将其节点拷贝到一个已经创建好了的新链表里面。
+*/
+LinkNode* UnionSet(LinkNode* head1, LinkNode* head2){
+      if(head1 == NULL || head2 == NULL){                                                                                                                                                      
+          return NULL;
+      }
+      LinkNode* cur1 = head1;
+      LinkNode* cur2 = head2;
+      LinkNode* new_head = NULL;
+      LinkNode* new_tail = NULL;
+      while(cur1 != NULL && cur2 != NULL){
+          if(cur1 -> data < cur2 -> data){
+              cur1 = cur1 -> next;
+          }else if(cur1 -> data > cur2 -> data){
+              cur2 = cur2 -> next;
+          }else{
+              LinkNode* new_node = LinkNodeCreate(cur1 -> data);
+              if(new_head == NULL){
+                  new_head = new_tail = new_node;
+              }else{
+                  new_tail -> next = new_node;
+                  new_tail = new_tail -> next;
+              }
+              cur1 = cur1 -> next;
+              cur2 = cur2 -> next;
+          }
+
+      }
+      return new_head;
+  }
