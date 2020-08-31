@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+typedef struct{
+double x,y,z;
+}point;
+typedef struct{
+point p1,p2;
+}line;
+main()
+{
+line lne;
+point points[3],point_Q;
+int initpoint(point *a,double x,double y,double z);
+int printpoint(point a);
+int initline(line *l,point a,point b);
+int point2line(line l,point a,point *b);
+double p2p(point a,point b);
+/*初始化三个点,其中前两个点用来做直线的*/
+initpoint(&points[0],1,2,3);
+initpoint(&points[1],-1,4,6);
+initpoint(&points[2],0,0,0);
+initline(&lne,points[0],points[1]); /*前两个点做线*/
+/*求垂足*/
+point2line(lne,points[2],&point_Q);
+printpoint(point_Q);/*输出垂足*/
+printf("dist=%lf\n",p2p(points[2],point_Q));
+getch();
+}
+int initpoint(point *a,double x,double y,double z)
+{
+a->x=x;
+a->y=y;
+a->z=z;
+return 1;
+}
+int printpoint(point a)
+{
+printf("x=%lf y=%lf z=%lf\n",a.x,a.y,a.z);
+}
+int initline(line *l,point a,point b)
+{
+l->p1.x=a.x;
+l->p1.y=a.y;
+l->p1.z=a.z;
+l->p2.x=b.x;
+l->p2.y=b.y;
+l->p2.z=b.z;
+return 1;
+}
+int point2line(line l,point p,point *Q)
+{
+double a,b,c;
+double A,B,C;
+a=l.p2.x-l.p1.x;
+b=l.p2.y-l.p1.y;
+c=l.p2.z-l.p1.z;
+A=a*p.x+b*p.y+c*p.z;
+B=b*l.p1.x-a*l.p1.y;
+C=c*l.p1.x-a*l.p1.z;
+if (a!=0)
+{
+Q->x=(A*a+B*b+C*c)/(a*a+b*b+c*c);
+Q->y=(b*Q->x-B)/a;
+Q->z=(c*Q->x-C)/a;
+}
+else
+{
+double D,temp;
+D=c*l.p1.y-b*l.p1.z;
+temp=b*b+c*c;
+Q->y=(A*b+D*c)/temp;
+Q->z=(A*c-D*b)/temp;
+Q->x=(B+a*Q->y)/b;
+}
+return 1;
+}
+double p2p(point a,point b)
+{
+double dx,dy,dz;
+dx=a.x-b.x;
+dy=a.y-b.y;
+dz=a.z-b.z;
+return sqrt(dx*dx+dy*dy+dz*dz);
+}
