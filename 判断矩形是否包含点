@@ -1,0 +1,19 @@
+/*/// <summary>
+       /// 判断P是否在以P1,P2为对角顶点的矩形内。
+       /// </summary>
+       /// <param name="p1"></param>
+       /// <param name="p2"></param>
+       /// <param name="p"></param>
+       /// <returns></returns>
+       public static bool  IsOnRectangle(Point p1, Point p2, Point p)
+       {
+           double max_x = p1.X > p2.X ? p1.X : p2.X;
+           double min_x = p1.X < p2.X ? p1.X : p2.X;
+           double max_y = p1.Y > p2.Y ? p1.Y : p2.Y;
+           double min_y = p1.Y < p2.Y ? p1.Y : p2.Y;
+           if (p.X >= min_x && p.X <= max_x && p.Y >= min_y && p.Y <= max_y)
+               return true;
+           else
+               return false;
+       }*/
+//只要判断该点的横坐标和纵坐标是否夹在矩形的左右边和上下边之间。
